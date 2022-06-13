@@ -1,0 +1,75 @@
+//int a = 1000 << 1;
+//int a = 1 << 1;                       // 2 int b = 2 << 2;
+// int c = 0x53 & 0x71; 
+// 0x00000000 0x21 ~ 0010 0001 0x71 ~ 0111 0001 0x53 ~ 0101 0001 
+//-------&-------- 0x70 = 0x10 = 2^4 ---------------------------------- 
+//T const * p0 = nullptr;
+//const T * p1 = nullptr;
+//T * const p2 = nullptr;
+//T const * const p3 = nullptr;
+//const char* a = "aaa"
+//static
+//===============================================================================
+#include <iostream>
+using namespace std;
+class A
+{
+  public:
+    A () {
+      cout << "A::A()" << endl;
+      foo (1);
+    }
+    ~A () {
+      cout << "A::~A()" << endl;
+      foo (1);
+    }
+    virtual void foo (int arg = 13) {
+      cout << "A::foo(" << arg << ")" << endl;
+    }
+};
+
+class B:public A
+{
+public:B ()
+  {
+    cout << "B::B()" << endl;
+    foo (2);
+    values_ = new int[42];
+  } ~B ()
+  {
+    cout << "B::~B()" << endl;
+    foo (2);
+    delete[]values_;
+  } virtual void foo (int arg = 42)
+  {
+    cout << "B::foo(" << arg << ")" << endl;
+} private:int *values_;
+};
+
+int
+main (int argc, char *argv[])
+{
+  A *a = new B ();
+  B *b = new B ();
+  a->foo ();
+  b->foo ();
+  delete a;
+  delete b;
+  return 0;
+}
+
+== == == == == == == == == == == == == == == =
+  "A::A()"
+  "A::foo(1)"
+  "B::B()"
+  "A::foo(2)"
+  "A::A()"
+  "A::foo(1)"
+  "B::B()"
+  "A::foo(2)"
+  "B::foo(42)"
+  "B::foo(42)"
+  "A::~A()"
+  "A::foo(1)"
+  "A::~A()"
+  "A::foo(1)"
