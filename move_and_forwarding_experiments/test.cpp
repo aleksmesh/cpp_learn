@@ -37,26 +37,26 @@ template<class T> class Array  {
       swap(copy);
       return *this;
     }
-//    Array<T>& operator=( Array&& rhs ) {
-//      std::cout << "rvalue operator =" << std::endl;
-//      if ( &rhs != this ) {
-//        delete[] array_;
-//        array_ = rhs.array_;
-//        size_ = rhs.size_;
-//        rhs.array_ = nullptr;
-//        rhs.size_ = 0;
-//      }
-//      return *this;
-//    }
+    Array<T>& operator=( Array&& rhs ) {
+      std::cout << "rvalue operator =" << std::endl;
+      if ( &rhs != this ) {
+        delete[] array_;
+        array_ = rhs.array_;
+        size_ = rhs.size_;
+        rhs.array_ = nullptr;
+        rhs.size_ = 0;
+      }
+      return *this;
+    }
     const T& operator[]( size_t index ) const {
-      std::cout << "const operator[]" << std::endl;
+//      std::cout << "const operator[]" << std::endl;
       if ( index >= size_ ) {
         throw std::out_of_range {"Index too large" + std::to_string(index) };
       }
       return array_[index];
     }
     T& operator[]( size_t index ) {
-      std::cout << "operator[]" << std::endl;
+//      std::cout << "operator[]" << std::endl;
       return const_cast<T&>( std::as_const(*this)[index] );
     }
 
@@ -99,6 +99,13 @@ Array<int> buid_array_one(size_t size) {
 //  return result;
 //}
 
+std::list<Array<int>> fwdlist;
+
+template<typename T> void test_forward( T&& fwd_array) {
+  std::cout << "try fwd elem" << std::endl;
+  fwdlist.push_back( std::forward<T>(fwd_array) );
+}
+
 int main( [[maybe_unused]] int argc, [[maybe_unused]] char* argv[] ) {
 
   std::vector<Array<int>> arr_vec;
@@ -113,8 +120,14 @@ int main( [[maybe_unused]] int argc, [[maybe_unused]] char* argv[] ) {
   list_vec.push_back(std::move(a));
   std::cout << fmt::format("origin size = {} ptr to data = {}", a.size(), static_cast<void*>( a.data() ) ) << std::endl;
 
-  Array<int> tmparr{14};
-  tmparr = buid_array_one(27);
+  Array<int> tmparr{14};        //two lines for activate move assignment operator
+//  auto&& tmpfwd = tmparr;
+
+  test_forward(tmparr);
+  test_forward(buid_array_one(1));
+
+//  Array<int> lvalue{20};
+
 
   return EXIT_SUCCESS;
 }
