@@ -7,31 +7,36 @@
 
 #include <unordered_set>
 
+#include <fmt/core.h>
+#include <fmt/ranges.h>
+
 int findUniqChar(const std::string& s) {
-
-  std::unordered_set<char> repeats;
-
-  int counter = 0;
-  for ( auto c : s ) {
-    ++counter;
-    if ( repeats.end() != repeats.find(c) ) {
-      continue;
+  unsigned char ln = '\0';
+  unsigned char rn = '\0';
+  for ( size_t i = 0, sz = s.size(); i < sz; ++i ) {
+    if ( 0 != i ) {
+      ln = s[i-1];
     }
-    if ( std::string::npos == s.find( c, counter ) ) {
-      return counter-1;
+    if ( i == s.size() - 1 ) {
+      rn = '\0';
     }
-    repeats.insert(c);
+    else {
+      rn = s[i+1];
+    }
+    if ( s[i] != ln && s[i] != rn ) {
+      return i;
+    }
   }
   return -1;
 }
 
 int main() {
-    assert(findUniqChar("aabbcdeec") == 5);
+    assert(findUniqChar("aabbcdeec") == 4);
     assert(findUniqChar("aabbccc") == -1);
     assert(findUniqChar("abbb") == 0);
-    assert(findUniqChar("babbbab") == -1);
+    assert(findUniqChar("babbbab") == 0);
     assert(findUniqChar("bbba") == 3);
-    assert(findUniqChar("baabba") == -1);
+    assert(findUniqChar("baabba") == 0);
     assert(findUniqChar("bbbb") == -1);
     assert(findUniqChar("abb") == 0);
     assert(findUniqChar("bb") == -1);
