@@ -11,19 +11,9 @@
 #include <fmt/ranges.h>
 
 int findUniqChar(const std::string& s) {
-  unsigned char ln = '\0';
-  unsigned char rn = '\0';
   for ( size_t i = 0, sz = s.size(); i < sz; ++i ) {
-    if ( 0 != i ) {
-      ln = s[i-1];
-    }
-    if ( i == s.size() - 1 ) {
-      rn = '\0';
-    }
-    else {
-      rn = s[i+1];
-    }
-    if ( s[i] != ln && s[i] != rn ) {
+    if ( ( 0 == i || s[i] != s[i-1] )
+        && ( i == sz - 1 || s[i] != s[i+1] ) ) {
       return i;
     }
   }
