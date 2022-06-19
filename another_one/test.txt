@@ -1,0 +1,72 @@
+// invert 7th bit at the address 0x12345
+
+void invert_7th_bit(void* address)
+{
+  uchar mask = 128;
+  uchar val = *address & mask;
+  if ( mask == val  ) {
+    uchar t = 255 ^ 128;
+    *address = t & address;
+  }
+  else {
+    *address = *address | val;
+  }
+}
+
+// Test 3
+
+template<typename Message>
+class FIFOMessageQueue
+{
+  FIFOMessageQueue(size_t max_elements);
+  
+  void put(Message& msg);
+  Message get(); 
+}
+
+
+// Test 3
+
+
+struct string
+{
+	mutable сhar* data;
+
+	string(const char* str ="")
+	{
+		assign(str);
+	}
+
+	string(const string& other)
+	{
+		data = other.data;
+		other.data = NULL;
+	}
+
+	string(int num)
+	{
+		char buffer[8];
+		sprintf(buffer, “%d”, num);
+		assign(buffer);
+	}
+
+	virtual ~string()
+	{
+		free(data);
+	}
+
+	void assign(const char* str)
+	{
+		data = (char*)malloc(strlen(str));
+		memcpy(data, str, strlen(str));
+	}
+
+	const char* c_str() const 
+	{ 
+		return data ? data : ""; 
+	}
+};
+
+
+
+
