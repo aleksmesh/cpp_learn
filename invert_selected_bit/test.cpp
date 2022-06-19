@@ -6,7 +6,24 @@
 
 #include <fmt/core.h>
 
-bool invert_bit( [[maybe_unused]] void* array, unsigned bitnum ) {
+//wrong solution
+void invert_7th_bit(void* address)
+{
+  unsigned char mask = 128;
+
+  unsigned char* a = (unsigned char*)address;
+
+  unsigned char val = *a & mask;
+  if ( mask == val  ) {
+    unsigned char t = 255 ^ 128;
+    *a = t & *a;
+  }
+  else {
+    *a = *a | mask;
+  }
+}
+
+bool invert_bit( void* array, unsigned bitnum ) {
   if ( 7 < bitnum ) {
     std::cout << fmt::format("wrong bit number = {}", bitnum ) << std::endl;
     return false;
@@ -17,6 +34,33 @@ bool invert_bit( [[maybe_unused]] void* array, unsigned bitnum ) {
 
   return true;
 }
+
+bool switch_on_bit( void* array, unsigned bitnum ) {
+  if ( 7 < bitnum ) {
+    std::cout << fmt::format("wrong bit number = {}", bitnum ) << std::endl;
+    return false;
+  }
+  unsigned char* charr = reinterpret_cast<unsigned char*>(array);
+  unsigned mask = 1 << bitnum;
+  *charr = *charr | mask;
+
+  return true;
+}
+
+bool switch_off_bit( void* array, unsigned bitnum ) {
+  if ( 7 < bitnum ) {
+    std::cout << fmt::format("wrong bit number = {}", bitnum ) << std::endl;
+    return false;
+  }
+  unsigned char* charr = reinterpret_cast<unsigned char*>(array);
+  unsigned mask = 1 << bitnum;
+  mask = 255 ^ mask;
+  *charr = *charr & mask;
+
+  return true;
+}
+
+
 
 bool convert_str_to_int( const std::string& str, int* number ) {
   if ( nullptr == number ) {
@@ -61,6 +105,13 @@ int main( int argc, char* argv[] ) {
 
 
   bool res = invert_bit( reinterpret_cast<void*>(&number), bitnumber );
+  std::cout << fmt::format("resul number = {0:>5d} {0:0>8b}", number, number ) << std::endl;
+
+//  invert_7th_bit(&number);
+//  std::cout << fmt::format("resul number = {0:>5d} {0:0>8b}", number, number ) << std::endl;
+  res = switch_on_bit( reinterpret_cast<void*>(&number), bitnumber );
+  std::cout << fmt::format("resul number = {0:>5d} {0:0>8b}", number, number ) << std::endl;
+  res = switch_off_bit( reinterpret_cast<void*>(&number), bitnumber );
   std::cout << fmt::format("resul number = {0:>5d} {0:0>8b}", number, number ) << std::endl;
 
   return EXIT_SUCCESS;
