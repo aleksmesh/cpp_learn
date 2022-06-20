@@ -15,3 +15,5 @@ INCLUDEPATH += .
 
 # Input
 SOURCES += test.cpp
+
+LIBS += -lfmt
