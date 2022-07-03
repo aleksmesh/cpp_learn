@@ -29,3 +29,4 @@ contains( CONFIG, qt ) {
 }
 OBJECTS_DIR = ./.o
 
+LIBS += -lfmt
