@@ -3,3 +3,6 @@
 Makefile
 *~
 *.swp
+.moc/*
+.o/*
+bin/*
