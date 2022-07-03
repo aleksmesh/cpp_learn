@@ -37,7 +37,7 @@ class B : public A {
     int *values_;
 };
 
-int main (int argc, char *argv[]) {
+int main ( [[maybe_unused]]int argc, [[maybe_unused]]char *argv[]) {
   A *a = new B ();
   B *b = new B ();
   a->foo ();
