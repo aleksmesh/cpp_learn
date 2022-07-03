@@ -77,7 +77,7 @@ template<typename Message> Message FIFOMessageQueue<Message>::get()
 }
 
 int main( [[maybe_unused]]int argc, [[maybe_unused]]char* argv[] ) {
-  int amount = 5000;
+  int amount = 1000;
   std::vector<std::thread*> getters(amount);
   std::vector<std::thread*> putters(amount);
 

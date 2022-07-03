@@ -69,7 +69,12 @@ int main( int argc, char* argv[] ) {
       fit = sit;
       ++sit;
       if ( sit == end ) {
-        ranges.push_back( fmt::format("{} - {}", first, last) );
+        if ( first == last ) {
+          ranges.push_back( std::to_string(first) );
+        }
+        else {
+          ranges.push_back( fmt::format("{} - {}", first, last) );
+        }
       }
     }
     if ( sit == end ) {
