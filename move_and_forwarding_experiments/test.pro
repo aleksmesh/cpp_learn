@@ -1,7 +1,7 @@
 SRC = $$system( git rev-parse --show-toplevel )
 
 TEMPLATE = app
-TARGET = monitor
+TARGET = move_experiment
 
 SOURCES = test.cpp
 
