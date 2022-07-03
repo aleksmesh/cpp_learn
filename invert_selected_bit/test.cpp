@@ -105,7 +105,7 @@ int main( int argc, char* argv[] ) {
 
 
   bool res = invert_bit( reinterpret_cast<void*>(&number), bitnumber );
-  std::cout << fmt::format("resul number = {0:>5d} {0:0>8b}", number, number ) << std::endl;
+  std::cout << fmt::format("resul number = {0:>5d} {0:0>8b} result = {1:}", number, res ) << std::endl;
 
 //  invert_7th_bit(&number);
 //  std::cout << fmt::format("resul number = {0:>5d} {0:0>8b}", number, number ) << std::endl;
