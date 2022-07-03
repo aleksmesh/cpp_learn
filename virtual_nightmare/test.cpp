@@ -1,5 +1,7 @@
-
 #include <iostream>
+
+#include <fmt/core.h>
+
 using namespace std;
 class A {
   public:
@@ -42,6 +44,13 @@ int main (int argc, char *argv[]) {
   b->foo ();
   delete a;
   delete b;
+
+  std::cout << fmt::format("input vals = {:x} & {:x} or {:b} & {:b}", 0x53, 0x71, 0x53, 0x71 ) << std::endl;
+
+  unsigned res = 0x53 & 0x71;
+
+  std::cout << fmt::format("result = {:d} {:x} {:b}", res, res, res ) << std::endl;
+
   return 0;
 }
 /*
